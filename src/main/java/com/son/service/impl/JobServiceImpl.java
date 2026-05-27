@@ -7,6 +7,7 @@ import org.springframework.batch.core.job.parameters.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.launch.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.launch.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +23,9 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobLauncher jobLauncher;
+	
+	@Autowired
+	private JobOperator jobOperator;
 
 	@Autowired
 	@Qualifier("firstChunkJob")
@@ -49,6 +53,12 @@ public class JobServiceImpl implements JobService {
 		JobParameters jobParameters = new JobParametersBuilder().addString("jobName", "firstJob")
 				.addLong("run.id", Long.valueOf(RandomUtil.getPositiveInt())).toJobParameters();
 		jobLauncher.run(firstJob, jobParameters);
+	}
+
+	@Override
+	public void stopJob(Long jobId) throws Exception {
+		
+		jobOperator.stop(jobId);
 	}
 
 }
