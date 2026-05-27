@@ -1,0 +1,13 @@
+package com.son.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SpingBatchApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
