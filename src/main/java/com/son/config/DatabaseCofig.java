@@ -21,6 +21,12 @@ public class DatabaseCofig {
 	}
 	
 	@Bean
+	@ConfigurationProperties(prefix = "spring.universitydatasource")
+	public DataSource universitydatasource() {
+		return DataSourceBuilder.create().build();
+	}
+	
+	@Bean
 	public PlatformTransactionManager transactionManager(DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
