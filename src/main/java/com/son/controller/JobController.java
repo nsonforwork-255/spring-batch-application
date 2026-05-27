@@ -25,5 +25,12 @@ public class JobController {
 		}
 		
 	}
+	
+	@GetMapping("/stop")
+	public String stop() {
+		
+		return "Job Stopped...";
+		
+	}
 
 }
