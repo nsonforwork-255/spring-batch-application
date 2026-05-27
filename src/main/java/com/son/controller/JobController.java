@@ -26,9 +26,14 @@ public class JobController {
 		
 	}
 	
-	@GetMapping("/stop")
-	public String stop() {
+	@GetMapping("/stop/{jobId}")
+	public String stop(@PathVariable Long jobId) {
 		
+		try {
+			jobService.stopJob(jobId);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return "Job Stopped...";
 		
 	}
