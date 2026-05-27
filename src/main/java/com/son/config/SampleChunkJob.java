@@ -37,7 +37,7 @@ public class SampleChunkJob {
 	@Autowired 
 	private FirstStepListener firstStepListener;
 	
-	@Bean
+	@Bean(name = "firstChunkJob")
 	public Job chunkJob() {
 		return new JobBuilder("firstChunkJob",jobRepository).incrementer(new RunIdIncrementer()).start(firstChunkStep()).listener(firstItemProcessor).listener(firstJobListener).build();
 		

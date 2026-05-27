@@ -5,12 +5,13 @@ import org.springframework.batch.core.configuration.annotation.EnableJdbcJobRepo
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableJdbcJobRepository
 @EnableBatchProcessing
 @ComponentScan(basePackages =  {"com.son.listener","com.son.config","com.son.controller", "com.son.service", "com.son.model","com.son.reader","com.son.writer","com.son.tasklet","com.son.processor"})
-
+@EnableAsync
 public class SpingBatchApplication {
 
 	public static void main(String[] args) {
