@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.son.tasklet.SecondTasket;
+
 import org.jspecify.annotations.Nullable;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -22,9 +25,12 @@ public class SampleJob {
 	@Autowired
 	private JobRepository jobRepository;
 	
+	@Autowired
+	private SecondTasket secondTasket;
+	
 	@Bean
 	public Job firstJob() { 
-		return new JobBuilder("firstJob", jobRepository).incrementer(new RunIdIncrementer()).start(firstStep()).build();
+		return new JobBuilder("firstJob", jobRepository).incrementer(new RunIdIncrementer()).start(firstStep()).next(secondStep()).build();
 	}
 	
 	public Step firstStep() {
@@ -38,5 +44,9 @@ public class SampleJob {
 			}
 			
 		}).build();
+	}
+	
+	public Step secondStep() {
+		return new StepBuilder("secondStep", jobRepository).tasklet(secondTasket).build();
 	}
 }
