@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableJdbcJobRepository
 @EnableBatchProcessing
-@ComponentScan(basePackages =  {"com.son.config","com.son.controller", "com.son.service", "com.son.model","com.son.reader","com.son.writer","com.son.tasklet","com.son.processor"})
+@ComponentScan(basePackages =  {"com.son.listener","com.son.config","com.son.controller", "com.son.service", "com.son.model","com.son.reader","com.son.writer","com.son.tasklet","com.son.processor"})
 
 public class SpingBatchApplication {
 

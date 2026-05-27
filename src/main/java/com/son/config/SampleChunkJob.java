@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.son.listener.FirstJobListener;
+import com.son.listener.FirstStepListener;
 import com.son.processor.FirstItemProcessor;
 import com.son.reader.FirstItemReader;
 import com.son.writer.FirstItemWriter;
@@ -28,15 +30,22 @@ public class SampleChunkJob {
 	
 	@Autowired
 	private FirstItemProcessor firstItemProcessor;
+	
+	@Autowired 
+	private FirstJobListener firstJobListener;
+	
+	@Autowired 
+	private FirstStepListener firstStepListener;
+	
 	@Bean
 	public Job chunkJob() {
-		return new JobBuilder("firstChunkJob",jobRepository).incrementer(new RunIdIncrementer()).start(firstChunkStep()).build();
+		return new JobBuilder("firstChunkJob",jobRepository).incrementer(new RunIdIncrementer()).start(firstChunkStep()).listener(firstItemProcessor).listener(firstJobListener).build();
 		
 	}
 	
 	public Step firstChunkStep() {
 		
-		return new StepBuilder("firstChunkStep",jobRepository).<Integer,String>chunk(3).reader(firstItemReader).processor(firstItemProcessor).writer(firstItemWriter).build();
+		return new StepBuilder("firstChunkStep",jobRepository).<Integer,String>chunk(3).reader(firstItemReader).listener(firstStepListener).processor(firstItemProcessor).writer(firstItemWriter).build();
 	}
 	
 	
