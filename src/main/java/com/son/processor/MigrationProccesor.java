@@ -11,6 +11,7 @@ public class MigrationProccesor implements ItemProcessor<Student, com.son.mysql.
 
 	@Override
 	public com.son.mysql.entity.@Nullable Student process(Student item) throws Exception {
+
 		com.son.mysql.entity.Student stu = new com.son.mysql.entity.Student();
 		stu.setFirstName(item.getFirstName());
 		stu.setEmail(item.getEmail());
@@ -18,7 +19,7 @@ public class MigrationProccesor implements ItemProcessor<Student, com.son.mysql.
 		stu.setIsActive(item.getIsActive().equals("Y") ? true : false);
 		stu.setLastName(item.getLastName());
 		stu.setDeptId(item.getDeptId());
-		return null;
+		return stu;
 	}
 
 }
